@@ -1,0 +1,10 @@
+.venv
+.env
+.env.*
+!.env.example
+.deploy-secrets
+__pycache__
+*.pyc
+.git
+.claude
+README.md

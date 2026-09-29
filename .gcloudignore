@@ -1,0 +1,7 @@
+# gcloud run deploy --source ile yüklenmeyecek dosyalar
+.venv/
+.env
+.deploy-secrets
+__pycache__/
+.git/
+.claude/

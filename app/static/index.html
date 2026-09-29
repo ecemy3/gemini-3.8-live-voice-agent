@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Canlı Sesli Asistan</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div id="banner" class="banner hidden" role="alert">
+    <span id="banner-text"></span>
+    <button id="banner-close" aria-label="Kapat">×</button>
+  </div>
+
+  <div class="layout">
+    <!-- Sol: kontroller -->
+    <aside class="panel controls">
+      <h1>Canlı Asistan</h1>
+      <div class="status-row">
+        <span id="status-dot" class="dot idle"></span>
+        <span id="status-text">Bağlı değil</span>
+      </div>
+
+      <form id="unlock-form" class="unlock hidden">
+        <label for="unlock-code">Tam demo için erişim kodu</label>
+        <div class="row">
+          <input id="unlock-code" type="password" autocomplete="off" placeholder="Kod" />
+          <button type="submit">Aç</button>
+        </div>
+        <p class="hint">Kod olmadan yalnızca herkese açık senaryolar kullanılabilir.</p>
+      </form>
+
+      <label for="scenario">Senaryo</label>
+      <select id="scenario"></select>
+      <p id="scenario-desc" class="hint"></p>
+      <div id="scenario-tools" class="chips"></div>
+      <div id="scenario-examples" class="examples"></div>
+
+      <label for="voice">Ses</label>
+      <select id="voice"></select>
+
+      <button id="btn-start" class="primary">Oturumu başlat</button>
+      <button id="btn-stop" class="danger" disabled>Oturumu bitir</button>
+      <button id="btn-summary" class="primary hidden" disabled>📝 Özet oluştur (CRM)</button>
+
+      <div class="meter-block">
+        <label>Mikrofon</label>
+        <div class="meter"><div id="mic-level"></div></div>
+        <button id="btn-mute" disabled>Mikrofonu kapat</button>
+      </div>
+
+      <div class="video-block" id="video-block">
+        <label>Görüntü (1 kare/sn)</label>
+        <div class="row">
+          <button id="btn-camera" disabled>📷 Kamera</button>
+          <button id="btn-screen" disabled>🖥️ Ekran</button>
+        </div>
+        <div id="preview-wrap" class="preview hidden">
+          <video id="preview" autoplay muted playsinline></video>
+          <span id="preview-badge" class="preview-badge"></span>
+        </div>
+      </div>
+
+      <form id="text-form" class="text-form">
+        <label for="text-input">Metin gönder (test)</label>
+        <div class="row">
+          <input id="text-input" type="text" placeholder="Merhaba…" autocomplete="off" disabled />
+          <button type="submit" id="btn-send" disabled>Gönder</button>
+        </div>
+      </form>
+
+      <dl class="stats">
+        <dt>Model</dt><dd id="stat-model">–</dd>
+        <dt>Son gecikme</dt><dd id="stat-latency">–</dd>
+        <dt>Gönderilen ses</dt><dd id="stat-up">0 KB</dd>
+        <dt>Alınan ses</dt><dd id="stat-down">0 KB</dd>
+        <dt>Gönderilen kare</dt><dd id="stat-frames">0</dd>
+        <dt>Duygu skoru</dt><dd id="stat-sentiment">–</dd>
+      </dl>
+    </aside>
+
+    <!-- Orta: transkript -->
+    <main class="panel transcript">
+      <header><h2>Konuşma</h2><button id="btn-clear" class="ghost">Temizle</button></header>
+      <div id="messages" class="messages" aria-live="polite">
+        <p class="empty">Oturumu başlatın ve konuşmaya başlayın.</p>
+      </div>
+    </main>
+
+    <!-- Sağ: canlı kartlar -->
+    <aside class="panel cards">
+      <header><h2>Canlı kartlar</h2><button id="btn-clear-cards" class="ghost">Temizle</button></header>
+      <div id="cards" class="card-list">
+        <p class="empty">Araç çağrıları ve analiz kartları burada görünecek.</p>
+      </div>
+    </aside>
+
+    <!-- Alt: telemetri -->
+    <section class="panel telemetry">
+      <header><h2>Telemetri</h2><button id="btn-clear-log" class="ghost">Temizle</button></header>
+      <div id="log" class="log"></div>
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
